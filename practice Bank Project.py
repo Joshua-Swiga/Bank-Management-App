@@ -1,10 +1,10 @@
 import random as random
 import time as time
 import sys as sys
-import csv
+import csv as csv
 
 
-sys.stdout ("Bank_Output.txt", "a", encoding='utf-8') #To log and redirect output 
+sys.stdout = open("Bank_Output.txt", "a", encoding='utf-8') #To log and redirect output 
 
 class Bank_Details:
 
@@ -69,6 +69,7 @@ class Bank_Details:
     
 
     def add_service(self, new_service: str):
+        #Running validations
         if not isinstance(new_service, str):
             raise ValueError (f"The new service: {new_service}, should have string representation!")
         
@@ -284,25 +285,42 @@ class Transactions (User):
 
 
     @staticmethod
-    def csv_writer(): #Function to record transaction history to a csv file
+    def csv_writer():
         global id_list, customer_name_list, deposit_history, withdraw_history
 
-        pass 
+        collection = [
 
+        ]
+
+        try:
+
+            for id, customer, deposit, withdraw in zip(id_list, customer_name_list, deposit_history, withdraw_history):
+                collection.append([id, customer, deposit, withdraw])
+
+            with open('bank_information.csv', 'a', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+
+                # Check if the file is empty
+                csvfile.seek(0, 2)  # Move the file pointer to the end
+                is_empty = csvfile.tell() == 0
+
+                # Write header if file is empty
+                if is_empty:
+                    fieldnames = ['id_list', 'customer_name_list', 'deposit_history', 'withdraw_history']
+                    writer.writerow(fieldnames)
+
+                # Write data
+                for data in collection:
+                    writer.writerow(data)
+
+            print("The data has been registered to a csv file. Name: bank_information.csv")
+        
+        
+        except TabError as e:
+            print(f"There was an issue with the CSV writer: {e}")
 
 
 if __name__== 'main':
-    print ("Code is running on main document")
+    print ("Code is running on main document...")
 else:
-    print ("Module has been exported")
-
-    
-"""
-object1= Bank_Details("Joshua", 'oop', 'python', 'java')
-#print(object1.__repr__())
-
-object1.change_branch_name("Swiga")
-#print(object1.__repr__())
-
-object1.remove_service("oop")
-print(object1.__repr__())"""
+    print ("Module has been exported...")

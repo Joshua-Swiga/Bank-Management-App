@@ -1,0 +1,11 @@
+
+**Bank Account Management System**:
+   - Develop a simple bank account management system where users can create accounts, deposit/withdraw funds, and view transaction history.
+   - Use classes to represent accounts, transactions, and the bank itself.
+   - Implement encapsulation to protect sensitive data such as account balances.
+   - Utilize inheritance to handle different types of accounts (e.g., savings account, checking account) with shared behaviors.
+   - Implement error handling for scenarios like insufficient funds or invalid transactions.
+
+
+TO DO:
+Create A graphical user interphase using Tkinter for ease of user interaction
